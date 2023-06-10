@@ -1,0 +1,126 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+h1, h2 {
+    font-family: 'Futura', sans-serif;
+    letter-spacing: -1.5px;
+    color: #444444;
+}
+
+strong {
+    font-weight: 900;
+    color: black;
+}
+
+p, li, h3 {
+    font-family: 'Fira Code', monospace;
+}
+
+li {
+    padding-bottom: 7px;
+}
+
+a {
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.75rem;
+    text-decoration-color: #93C6E7;
+    text-decoration-skip-ink: none;
+    text-underline-offset: -0.3rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.main-section {
+    height: 70vh;
+    display: flex;
+    justify-content: flex-start;
+    justify-items: flex-start;
+}
+
+.personal-photo {
+    width: 20%;
+    position: absolute;
+    z-index: 0;
+    left: 60%;
+    bottom: 25%;
+    border-radius: 15px;
+    cursor: url('assets/sparkle.png'), auto;
+}
+
+.web-dev {
+    padding: 25px;
+    top: -30px;
+    background-color: #B9F3FC;
+    border-radius: 15px;
+}
+
+.academia {
+    padding: 25px;
+    top: -30px;
+    background-color: #EAE0DA;
+    border-radius: 15px;
+}
+
+.contato {
+    padding: 25px;
+    top: -30px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.number, .tag {
+    color: #93C6E7;
+    text-transform: uppercase;
+}
+
+.tag {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.web-dev-entry, .pub-entry, .contato {
+    margin-bottom: 25px;
+}
+
+.web-dev-entry-img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.bottom {
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.bottom p {
+    width: 100%;
+    text-align: center;
+    color: #444444;
+    font-size: 12px;
+    margin: 0;
+}
+
+a:hover {
+    color: black;
+}
+
+.pub-entry .tag, .pub-entry .number {
+    color: #967E76;
+}
+
+.authors {
+    color: #444444;
+    margin-bottom: 0;
+    font-size: 14px;
+}
