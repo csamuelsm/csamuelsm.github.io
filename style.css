@@ -47,10 +47,43 @@ ul {
     justify-items: flex-start;
 }
 
+.mobile-menu div {
+    border: 2px solid #93C6E7;
+    background-color: white;;
+}
+
+.arrow-down {
+    font-size: 12px;
+    color: #444444;
+}
+
+.arrow {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 18px;
+  }
+  .bounce {
+    -moz-animation: bounce 2s infinite;
+    -webkit-animation: bounce 2s infinite;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-30px);
+    }
+    60% {
+      transform: translateY(-15px);
+    }
+  }
+
 .personal-photo {
     width: 20%;
     position: absolute;
-    z-index: 0;
+    z-index: -1;
     left: 60%;
     bottom: 25%;
     border-radius: 15px;

@@ -19,7 +19,7 @@
     <body>
         <div class="container" id="inicio">
             <div class="row main-section flex align-items-center">
-                <div class="menu col-3 position-fixed">
+                <div class="menu col-3 position-fixed d-none d-lg-block">
                     <ul>
                         <li><a href="#inicio">Início</a></li>
                         <li><a href="#desenvolvimento">Desenvolvimento</a></li>
@@ -27,25 +27,30 @@
                         <li><a href="#contato">Contato</a></li>
                     </ul>
                 </div>
-                <div class="offset-3 sobre col">
+                <div class="offset-lg-3 text-center text-lg-start sobre col flex flex-column">
                     <h2><strong>Samuel Santos</strong> é um</h2>
                     <h1 id="typeit"></h1>
-                    <img class="personal-photo" src="assets/samuel.jpg" alt="foto do samuel"/>
+                    <img class="personal-photo d-none d-lg-block" src="assets/samuel.jpg" alt="foto do samuel"/>
+                    <div class="arrow-down col d-flex row d-lg-none align-self-end">
+                        <div class="arrow bounce text-center">
+                            <i class="bi bi-arrow-down"></i>
+                        </div>
+                        <p>Projetos, Publicações & Contato</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="container" id="desenvolvimento">
             <div class="row web-dev flex">
-                <div class="col-3"></div>
-                <div class="flex col">
+                <div class="flex col offset-lg-3">
                     <h1 class="mb-4"><strong>Desenvolvimento</strong></h1>
 
                     <div class="row">
 
-                        <div class="web-dev-entry col-6 row">
-                            <div class="col-2"><h3 class="number">01</h3></div>
-                            <div class="col col-10">
+                        <div class="web-dev-entry col-lg-6 row">
+                            <div class="col-lg-2"><h3 class="number">01</h3></div>
+                            <div class="col col-lg-10">
                                 <img class="web-dev-entry-img" src="assets/orcamento-participativo.png" alt="Imagem com prints de telas do app de Orçamento Participativo UFCA"/>
                                 <a href="https://github.com/marcosChalet/orcamento-participativo" target="_blank">
                                     <h2>Orçamento Participativo UFCA</h2>
@@ -55,9 +60,9 @@
                             </div>
                         </div>
 
-                        <div class="web-dev-entry col-6 row">
-                            <div class="col-2"><h3 class="number">02</h3></div>
-                            <div class="col col-10">
+                        <div class="web-dev-entry col-lg-6 row">
+                            <div class="col-lg-2"><h3 class="number">02</h3></div>
+                            <div class="col col-lg-10">
                                 <img class="web-dev-entry-img" src="assets/cobras-do-cariri.png" alt="Imagem com a logo do projeto Cobras do Cariri"/>
                                 <a href="https://sci01-ter-jne.ufca.edu.br/cobras/" target="_blank">
                                     <h2>Cobras do Cariri</h2>
@@ -67,9 +72,9 @@
                             </div>
                         </div>
 
-                        <div class="web-dev-entry col-6 row">
-                            <div class="col-2"><h3 class="number">03</h3></div>
-                            <div class="col col-10">
+                        <div class="web-dev-entry col-lg-6 row">
+                            <div class="col-lg-2"><h3 class="number">03</h3></div>
+                            <div class="col col-lg-10">
                                 <img class="web-dev-entry-img" src="assets/password.png" alt="Imagem com a logo do projeto Password"/>
                                 <a href="https://desafiosdiarios.com/g/password/index.html" target="_blank">
                                     <h2>Password</h2>
@@ -79,9 +84,9 @@
                             </div>
                         </div>
 
-                        <div class="web-dev-entry col-6 row">
-                            <div class="col-2"><h3 class="number">04</h3></div>
-                            <div class="col col-10">
+                        <div class="web-dev-entry col-lg-6 row">
+                            <div class="col-lg-2"><h3 class="number">04</h3></div>
+                            <div class="col col-lg-10">
                                 <img class="web-dev-entry-img" src="assets/crosswords.png" alt="Imagem com a logo do projeto Crosswords"/>
                                 <a href="https://desafiosdiarios.com/g/crossword/index.html" target="_blank">
                                     <h2>Crosswords</h2>
@@ -98,14 +103,13 @@
 
         <div class="container mt-5" id="publicacoes">
             <div class="row academia flex">
-                <div class="col-3"></div>
-                <div class="flex col">
+                <div class="offset-lg-3 flex col">
                     <h1 class="mb-4"><strong>Publicações & Academia</strong></h1>
                     <div class="pub-entry row">
-                        <div class="col-2">
+                        <div class="col-lg-2">
                             <h3 class="number">2022</h3>
                         </div>
-                        <div class="col-10">
+                        <div class="col-lg-10">
                             <p class="authors"><u>Cicero S. S. Morais</u>, Carlos V. G. C. Lima</p>
                             <a href="https://sol.sbc.org.br/index.php/etc/article/view/20679" target="_blank">
                                 <h2>Bipartizando Grafos Livres de P6 pela Remoção de um Emparelhamento </h2>
@@ -115,10 +119,10 @@
                     </div>
 
                     <div class="pub-entry row">
-                        <div class="col-2">
+                        <div class="col-lg-2">
                             <h3 class="number">2023</h3>
                         </div>
-                        <div class="col-10">
+                        <div class="col-lg-10">
                             <p class="authors"><u>Cicero S. S. Morais</u>, Carlos V. G. C. Lima, Thiago B. Marcilon</p>
                             <a href="#">
                                 <h2>Eliminar Ciclos pela Remoção de um Emparelhamento Parametrizado pela Largura em Árvore é FPT (Em breve)</h2>
@@ -128,10 +132,10 @@
                     </div>
 
                     <div class="pub-entry row">
-                        <div class="col-2">
+                        <div class="col-lg-2">
                             <h3 class="number">2023</h3>
                         </div>
-                        <div class="col-10">
+                        <div class="col-lg-10">
                             <p class="authors"><u>Cicero S. S. Morais</u>, Carlos V. G. C. Lima (Orientador)</p>
                             <a href="#">
                                 <h2>Deciclando e Bipartizando Grafos pela Remoção de um Emparelhamento (TCC) (Em breve)</h2>
@@ -145,8 +149,7 @@
 
         <div class="container mt-5" id="contato">
             <div class="row contato flex">
-                <div class="col-3"></div>
-                <div class="flex col">
+                <div class="offset-lg-3 flex col">
                     <h1 class="mb-4"><strong>Contato & Redes</strong></h1>
                     <ul>
                         <li><i class="bi bi-github"></i> <a target=”_blank” href="https://github.com/csamuelsm">Github: <strong>@csamuelsm</strong></a></li>
