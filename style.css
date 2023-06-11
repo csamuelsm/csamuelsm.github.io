@@ -97,11 +97,43 @@ ul {
     border-radius: 15px;
 }
 
+.stack {
+    font-size: 12px;
+    line-height: 25px;
+}
+
+.tech {
+    background-color: #93C6E7;
+    padding: 0px 5px;
+    border-radius: 5px;
+    font-weight: 700;
+    display: inline-block;
+    margin-top: 3px;
+}
+
 .academia {
     padding: 25px;
     top: -30px;
     background-color: #EAE0DA;
     border-radius: 15px;
+}
+
+.accordion, .accordion-header {
+    font-family: 'Fira Code', auto, sans-serif;
+}
+
+.accordion-button {
+    background-color: #93C6E7 !important;
+    font-weight: 800;
+}
+
+
+.accordion-button:focus {
+box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+color: #212529;
 }
 
 .contato {
