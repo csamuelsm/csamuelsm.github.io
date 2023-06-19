@@ -21,6 +21,9 @@
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js" integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
         <meta property="og:image" content="../blog-assets/blossom/og-image.png" />
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="400">
+        <meta property="og:image:height" content="225">
     </head>
     <body>
         <div class="container" id="inicio">
@@ -117,7 +120,7 @@
             <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
                 <div class="section">
                     <p>Existe um conceito na área de Teoria dos Grafos que captura exatamente o conceito de "formação de duplas" em um grafo: <b>Emparelhamentos</b>.</p>
-                    <p><em><b>Observação:</b> para este texto, consideramos um grafo como sendo uma 2-upla $G = (V, E)$, onde $V(G)$ é o conjunto de vértices e $E(G)$ é o conjunto de arestas do grafo $G$. Vamos também denotar $|V(G)| = n$ e $|E(G)| = m$.</em></p>
+                    <p><em><b>Observação:</b> para este texto, consideramos um grafo como sendo uma 2-upla $G = (V, E)$, onde $V(G)$ é o conjunto de vértices e $E(G)$ é o conjunto de arestas do grafo $G$. Vamos também denotar $|V(G)| = n$ e $|E(G)| = m$. Além disso, utilizarei notações próprias da Teoria dos Grafos e assumirei a partir daqui que o leitor tem algum conhecimento (não muito, mas algum) da área de Algoritmos e Grafos.</em></p>
                     <div class="feat">
                         <div class="feat-header">
                             <h4>Definição: Emparelhamento</h4>
@@ -213,6 +216,267 @@ retorne max
                     </div>
                 </div>
             </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-5.png" alt="Figura mostrando vértices saturados e insaturados."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Os vértices Ana, Isabel, Clara e Joaquim estão <b>saturados</b> pois são incidentes a arestas do emparelhamento. Já Matheus e Arthur estão <b>insaturados</b> pois nenhuma de suas arestas está no emparelhamento.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+                    <p>Os conceitos de saturação e insaturação são úteis pois eles nos dizem quais vértices ainda poderiam ser emparelhados e quais não podem mais. Além disso, a partir deles nós podemos definir <em>caminhos alternantes</em> e <em>caminhos aumentantes</em> que nos serão bastante úteis mais para frente.</p>
+
+                    <div class="feat">
+                        <div class="feat-header">
+                            <h4>Definição: Caminho M-Alternante</h4>
+                        </div>
+                        <div class="feat-desc">
+                            Para um grafo $G$ e um emparelhamento $M$, um caminho
+                            $C = v_1 v_2 \dots v_k$ é dito um caminho $M$-alternante se as
+                            arestas de $C$ alternam entre arestas de $M$ e arestas
+                            fora de $M$.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-6.png" alt="Figura mostrando um exemplo de caminho alternante em um grafo."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Dado este grafo e este emparelhamento, o caminho $C =$ Isabel Ana Joaquim Clara é um caminho alternante.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <div class="feat">
+                        <div class="feat-header">
+                            <h4>Definição: Caminho M-Aumentante</h4>
+                        </div>
+                        <div class="feat-desc">
+                            Para um grafo $G$ e um emparelhamento $M$, um caminho
+                            $C = v_1 v_2 \dots v_k$ é dito um caminho $M$-aumentante se $C$ é um
+                            caminho $M$-alternante e ambas as extremidades de $C$
+                            ($v_1$ e $v_k$) são vértices $M$-insaturados.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-7.png" alt="Figura mostrando um exemplo de caminho aumentante em um grafo."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Dado este grafo e este emparelhamento, o caminho $C =$ Matheus Clara Joaquim Arthur é um caminho alternante.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>É interessante tentar perceber o por quê da nomeção de "caminho <em>aumentante</em>". Veja que se temos um caminho $M$-aumentante, podemos <em>aumentar</em> o tamanho de $M$ em uma unidade, removendo as arestas emparelhadas do caminho de $M$ e adicionando as <em>não</em>-emparelhadas em $M$.</p>
+                    <p>Veja que na figura acima nós temos um emparelhamento de tamanho 2. Fazendo a operação descrita de trocar as arestas obtemos um emparelhamento de tamanho 3 para este mesmo grafo a partir do caminho aumentante:</p>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-8.png" alt="Aumentando o emparelhamento em uma unidade a partir de um caminho aumentante."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Aumentando o emparelhamento em uma unidade a partir de um caminho aumentante.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>Vamos provar que isto é válido para todo caminho aumentante.</p>
+
+                    <div class="feat">
+                        <div class="feat-header">
+                            <h4>Teorema 1</h4>
+                        </div>
+                        <div class="feat-desc">
+                            Dado um grafo $G$, um emparelhamento $M$ de $G$ e um
+                            caminho $M$-aumentante, podemos aumentar o tamanho de
+                            $M$ em uma unidade.
+                        </div>
+                    </div>
+
+                    <p><em>Prova.</em> Primeiramente, veja que para qualquer emparelhamento $M$, <em>todo</em> caminho $M$-aumentante possui uma quantidade <em>ímpar</em> de arestas. Seja $C = v_1 v_2 \dots v_{k-1} v_k$ um caminho $M$-aumentante. Considere agora o caminho interno $C' = v_2 \dots v_{k-1}$. Como $C$ é um caminho $M$-aumentante, nós sabemos que os vértice $v_1$ e $v_k$ estão $M$-insaturados e portanto as arestas $\{v_1, v_2\}$ e $\{v_{k-1}, v_k\}$ não estão em $M$. É claro então que $\{v_2, v_3\}$ e $\{v_{k-2}, v_{k-1}\}$ devem estar em $M$. Porém, se $C'$ possui tamanho par, ou $\{v_2, v_3\}$ ou $\{v_{k-2}, v_{k-1}\}$ devem estar fora de $M$, o que não pode acontecer. Assim, $C'$ possui tamanho ímpar, logo $C$ também possui tamanho ímpar.</p>
+
+                    <p>Agora, vamos à prova do Teorema 1 de fato. Vamos provar por indução no número de arestas (que chamarei de <em>tamanho</em>) do caminho $M$-aumentante.</p>
+                    <p><b>Caso base: caminho $M$-aumentante de tamanho 1.</b> Neste caso, o caminho só possui uma aresta $\{v_1, v_2\}$ que está fora de $M$ e ambos $v_1$ e $v_2$ estão $M$-insaturados. Assim, $M' = M \cup \{v_1, v_2\}$ é um emparelhamento válido de $G$ e $|M'| = |M| + 1$.</p>
+                    <p><b>Passo indutivo. </b>Assuma agora que nossa afirmação vale para
+                        caminhos $M$-aumentantes de tamanho $2k - 1$ e considere
+                        um caminho $M$-aumentante de tamanho $2k + 1$, digamos
+                        $C$.</p>
+                    <p>Veja que $C$ contém um caminho M-aumentante de
+                        tamanho $2k - 3$, digamos $C'$. Obtemos $C'$ removendo de $C$ as duas primeiras e as duas últimas arestas.
+                        Em $E(C) \setminus E(C’)$ temos 2 arestas de $M$, digamos $\{u, v\}$ e $\{x, y\}$, e 2
+                        arestas de $E(G) \setminus M$, digamos $\{w, v\}$ e $\{y, z\}$.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-9.png" alt="Caminho C' contido em C."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Exemplo de um caminho $C'$ contido em um caminho aumentante $C$.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>Pela nossa hipótese indutiva, podemos obter um
+                        emparelhamento $M’$ de tamanho $|M’| = |M| + 1$ a partir
+                        de $C’$, porém $M’ \cup \{\{u, v\}, \{x, y\}\}$ não é um emparelhamento.
+                        Mas $M’’ = M’ \cup \{\{w, v\}, \{y, z\}\}$ é! Além disso, $|M''| = |M| + 1$. ⬛</p>
+
+                    <p>A partir deste resultado do Teorema 1, temos o próximo Teorema que é a base de todo o nosso algoritmo: o Teorema de Berge.</p>
+
+                    <div class="feat">
+                        <div class="feat-header">
+                            <h4>Teorema 2: Teorema de Berge</h4>
+                        </div>
+                        <div class="feat-desc">
+                            Sejam $G$ um grafo e $M$ um emparelhamento de $G$. Então
+                            $M$ é um emparelhamento máximo se e somente se $G$ não
+                            possui caminhos $M$-aumentantes.
+                        </div>
+                    </div>
+
+                    <p><em>Prova</em>. <b>[IDA]</b> Suponha, por contradição, que $M$ é máximo e $G$
+                        possui um caminho $M$-aumentante. Pelo Teorema 1,
+                        existe um emparelhamento $M’$ tal que $|M’| > |M|$.</p>
+
+                    <p><b>[VOLTA]</b> Suponha, por contradição, que $G$ não possui
+                        caminhos $M$-aumentantes, mas $M$ não é máximo. Seja
+                        então $M’$ um emparelhamento de G tal que $|M’| > |M|$.
+                        Seja $H = G[M \cup M']$ o grafo que contém apenas vértices $M$-saturados ou $M'$-saturados e arestas de $M$ ou $M'$.</p>
+
+                    <p>Veja que cada vértice de $H$ pode ter no máximo uma aresta de $M$ e uma de $M'$ incidente a si, pois caso contrário ou $M$ ou $M'$ não seriam emparelhamentos. Portanto, $\Delta(H) \leq 2$.
+                        Além disso, $\delta(H) \geq 1$. Logo as componentes de $H$ são caminhos ou ciclos. Em particular, cada componente é de um dos seguintes três tipos: </p>
+
+                    <ol>
+                        <li><b>Ciclos pares</b> com arestas alternando entre arestas de $M$ e arestas de $M'$.</li>
+                        <li><b>Caminhos pares</b> com arestas alternando entre arestas de $M$ e arestas de $M'$, iniciando em uma aresta de um dos emparelhamentos e terminando em uma aresta do outro.</li>
+                        <li><b>Caminhos ímpares</b> com arestas alternando entre arestas de $M$ e arestas de $M'$, iniciando e terminando em uma aresta de um mesmo emparelhamento.</li>
+                    </ol>
+
+                    <p>Veja que $H$ <em>não</em> pode possuir ciclos ímpares, pois para isso seria necessário que duas
+                        arestas de um mesmo emparelhamento fossem
+                        incidentes a um mesmo vértice, o que não pode acontecer.</p>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-10.png" alt="Tipos de componentes de H."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Tipos de componentes de $H$.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>Veja que os ciclos pares e os caminhos pares possuem número igual de arestas de $M$ e $M'$. Mas como $|M'| > M$, é necessário existir então um caminho ímpar em $H$ que começa e termina com uma aresta de $M'$. Mas este caminho é exatamente um caminho $M$-aumentante de $G$! ⬛</p>
+
+                    <p>Agora que temos o resultado do Teorema de Berge, podemos usá-lo para criar um novo algoritmo. Considere o seguinte:</p>
+<pre>
+<code>def FIND_MAXIMUM_MATCHING(G, M):
+    P <- FIND_AUGMENTING_PATH(G, M)
+    se P == []:
+        retorne M
+    senão:
+        M <- M Δ E(P) #diferença simétrica
+        retorne FIND_MAXIMUM_MATCHING(G, M)
+</code>
+</pre>
+
+                    <p>Nós iniciamos o algoritmo a partir de um emparelhamento qualquer de $G$. Note que $\emptyset$ é um emparelhamento válido para qualquer grafo. Iterativamente, buscamos por um caminho
+                        $M$-aumentante em $G$ e, caso exista, atualizamos $M$ até
+                        não existir mais nenhum caminho $M$-aumentante, garantindo que $M$ é máximo pelo Teorema de Berge.</p>
+
+                    <p>Isso funciona? Bom, <b>sim, funciona</b>. Mas a questão é: como encontramos os caminhos aumentantes? Como implementar a função <code>FIND_AUGMENTING_PATH</code>?</p>
+
+                    <p>A resposta é: podemos utilizar uma Busca em Largura (<code>BFS</code>) para encontrar caminhos
+                        $M$-aumentantes. <em>Mas</em> precisamos alterar um pouco.</p>
+
+                    <p>Como queremos encontrar caminhos $M$-aumentantes,
+                        vamos iniciar o <code>BFS</code> pelos vértices $M$-insaturados de $G$ e
+                        construir uma árvore em camadas, onde as camadas
+                        ímpares contém arestas fora de $M$ e camadas pares
+                        contém arestas de $M$. Considere, por exemplo, o seguinte grafo e seu emparelhamento:</p>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-11.png" alt="Exemplo de um grafo e emparelhamento."/>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>Vamos iniciar o <code>BFS</code> a partir do vértice insaturado $e$. A árvore gerada pelo nosso <code>BFS</code> fica da seguinte maneira:</p>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-12.png" alt="Árvore gerada pelo BFS no grafo acima iniciando a busca a partir do vértice e."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>O vértice $e$ alcança $d$ e $f$ por arestas não-emparelhadas. Os pares de $d$ e $f$ são $c$ e $g$ respectivamente, portanto eles alcançam apenas estes vértices a partir de arestas de $M$. Os vértices $c$ e $d$ por sua vez alcançam $b$ e $h$ respectivamente por arestas fora de $M$.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>Nós encontramos o vértice $h$ que está também $M$-insaturado através do nosso <code>BFS</code> modificado. Como a maneira que nosso $BFS$ funciona é realizando uma busca através de caminhos alternantes que inicia com um vértice $M$-insaturado, então quando encontramos um outro vértice $M$-insaturado durante a busca, sabemos que encontramos um caminho $M$-aumentante de $G$.</p>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-13.png" alt="Caminho M-aumentante encontrado pelo BFS."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Caminho $M$-aumentante encontrado pelo nosso <code>BFS</code>.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>Até agora, tudo ótimo. Nosso <code>BFS</code> realmente parece estar funcionando muito bem para identificar os caminhos $M$-aumentantes. Porém perceba que o grafo acima em que realizamos o <code>BFS</code> é um grafo bipartido, logo não contém nenhum ciclo ímpar. Mas o que acontece quando existe um ciclo ímpar no grafo? Vamos dar uma olhada nesse caso agora.</p>
+
+                </div>
+            </div>
+
         </div>
 
         <div class="container bottom">

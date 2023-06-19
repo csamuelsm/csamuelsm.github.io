@@ -28,9 +28,11 @@ h6 {
     text-transform: uppercase;
     background-color: #146C94;
     color: white;
+    border-radius: 8px 8px 0px 0px;
 }
 
 .feat-header h4{
+    font-size: 18px;
     font-weight: 700;
     margin: 0
 }
@@ -38,6 +40,7 @@ h6 {
 .feat-desc {
     padding: 10px 20px;
     background-color: #AFD3E2;
+    border-radius: 0px 0px 8px 8px;
 }
 
 .legenda {
@@ -57,6 +60,7 @@ pre code {
     display: block;
     padding: 20px;
     font-variation-settings: normal;
+    overflow: scroll;
   }
 
 pre code { font-family: 'Fira Code', monospace; }
