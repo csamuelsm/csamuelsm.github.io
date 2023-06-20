@@ -1,4 +1,7 @@
-@import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
+@import url('https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 
 html, body {
     margin: 0;
@@ -12,9 +15,9 @@ html {
 }
 
 h1, h2 {
-    font-family: 'Futura', sans-serif;
+    font-family: 'Fraunces', 'Futura', sans-serif;
     letter-spacing: -1.5px;
-    color: #444444;
+    color: #333333;
 }
 
 strong {
@@ -23,7 +26,7 @@ strong {
 }
 
 p, li, h3, h4, h6 {
-    font-family: 'Fira Code', monospace;
+    font-family: 'Fira Sans', 'Fira Code', sans-serif, monospace;
 }
 
 li {
@@ -125,7 +128,7 @@ ul {
 }
 
 .accordion, .accordion-header {
-    font-family: 'Fira Code', auto, sans-serif;
+    font-family: 'Fira Sans', 'Fira Code', auto, sans-serif;
 }
 
 .accordion-button {
