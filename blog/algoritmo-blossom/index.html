@@ -103,7 +103,7 @@
 
             <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
                 <div class="section">
-                    <p>Nós temos 6 alunos e formamos 3 duplas! Se temos $n$ alunos e formamos $\frac{n}{2}$ duplas, é claro que formamos o número máximo de duplas possível. Portanto, o emparelhamento acima é um emparelhamento máximo.</p>
+                    <p>Nós temos 6 alunos e formamos 3 duplas! Se temos $n$ alunos e formamos $\frac{n}{2}$ duplas, é claro que formamos o número máximo de duplas possível. </p>
                     <p>Porém, nem sempre conseguimos formar $\frac{n}{2}$ duplas. Basta mudar um pouco a estrutura do grafo acima e veremos que não será mais possível formar 3 duplas. Veja, por exemplo, o grafo abaixo em que podemos formar apenas 2 duplas.</p>
                 </div>
             </div>
@@ -473,6 +473,340 @@ retorne max
                 <div class="section">
 
                     <p>Até agora, tudo ótimo. Nosso <code>BFS</code> realmente parece estar funcionando muito bem para identificar os caminhos $M$-aumentantes. Porém perceba que o grafo acima em que realizamos o <code>BFS</code> é um grafo bipartido, logo não contém nenhum ciclo ímpar. Mas o que acontece quando existe um ciclo ímpar no grafo? Vamos dar uma olhada nesse caso agora.</p>
+                    <p>Imagine que nós temos um ciclo ímpar com arestas alternantes em relação a um emparelhamento $M$, como no exemplo seguinte: </p>
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-14.png" alt="Um grafo com ciclo ímpar de arestas alternantes."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Um grafo com ciclo ímpar de arestas alternantes.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>Vamos agora utilizar a nossa abordagem do <code>BFS</code> em busca de um caminho $M$-aumentante neste grafo.</p>
+                    <p>O <code>BFS</code> iniciando a partir do vértice insaturado $a$ gera a seguinte árvore:</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-15.png" alt="Árvore gerada pelo BFS."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Árvore gerada pelo <code>BFS</code> a partir de vértice $a$ do grafo acima.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>O que aconteceu neste <code>BFS</code>? Nós alcançamos os vértices $c$ e $e$ na camada 3 da busca, em seguida alcançamos $g$ e $d$ a partir de $c$ por arestas fora de $M$. O vértice $e$ alcança $d$ por uma aresta não-saturada também, porém devido ao funcionamento do <code>BFS</code> de não re-visitar vértices já visitados, $d$ não será alcançado por $e$ na busca. Além disso, a próxima camada da busca deve ser através de arestas de $M$, mas $d$ alcança apenas $g$ (que já foi visitado) e $g$ não alcança ninguém por arestas de $M$. Logo, a busca termina com esta árvore acima gerada.</p>
+                    <p>Desta maneira, o <code>BFS</code> retornaria que não existe nenhum caminho aumentante no grafo, mas perceba que $C = a f e d g h$ é um caminho aumentante!</p>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-16.png" alt="Ilustração mostrando que o BFS não encontra um caminho aumentante neste caso."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Ilustração mostrando que o <code>BFS</code> não encontra um caminho aumentante neste caso.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>Veja que um ciclo ímpar de arestas alternantes sempre possuirá um vértice $u$ que possui exatamente duas arestas não-saturadas do ciclo incidentes a si. No caso do grafo acima, $u = a$.
+                        Além disso, perceba que para qualquer vértice $v$ do ciclo ímpar, existem exatamente dois caminhos alternantes entre $u$ e $v$, o que não acontece em ciclos pares de arestas alternantes.
+                    </p>
+
+                    <p>Por isso, ciclos ímpares de arestas alternantes são problemas para o nosso <code>BFS</code> mas ciclos pares não!
+                        Com ciclos ímpares de arestas alternantes, podemos prosseguir a busca do <code>BFS</code> através do primeiro caminho, mas perder o caminho aumentante que passa pelo segundo.
+                        Veja que foi exatamente isto que aconteceu na busca acima. O <code>BFS</code> iniciou em $a$ e chegou em $g$ primeiro através do caminho que passa pelo vértice $b$.
+                        Porém, devido a isso, o <code>BFS</code> acaba perdendo o caminho aumentante que existe no grafo iniciando em $a$ e passando por $f$ até $g$ e depois indo para o vértice $h$.</p>
+
+                    <p>"Ah", você pode dizer, "então vamos deixar o BFS prosseguir sem fazer a verificação dos vértices que já foram visitados!". Porém, se fizermos isto, o <code>BFS</code> pode acabar <em>"dando a volta"</em> no ciclo e não terminar nunca. Logo, precisamos de outra solução.</p>
+
+                    <h3>Flores 🌸</h3>
+
+                    <p>Para resolver o problema dos ciclos ímpares, vamos precisar de 🌸<b>flores</b>🌸! </p>
+
+                    <div class="feat">
+                        <div class="feat-header">
+                            <h4>Definição: Flor</h4>
+                        </div>
+                        <div class="feat-desc">
+                            Dado um grafo $G$ e um emparelhamento $M$ de $G$, uma
+                            $M$-<b>Flor</b> de $G$ é a união de dois caminhos $M$-alternantes
+                            de <b>paridades diferentes com extremidades iguais</b>.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-17.png" alt="Exemplo de uma Flor."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Exemplo de uma Flor.</p>
+                </div>
+            </div>
+
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+
+                    <p>Veja que, pela própria definição de uma Flor, sempre haverá um ciclo ímpar. Já se os caminhos se intersectarem em vértices internos, a Flor conterá um caminho de tamanho par e o ciclo ímpar.</p>
+
+                    <div class="feat">
+                        <div class="feat-header">
+                            <h4>Definição: Coroa</h4>
+                        </div>
+                        <div class="feat-desc">
+                            A <b>Coroa</b> (<em>Blossom</em>) de uma $M$-Flor é o cíclo ímpar contido nela.
+                        </div>
+                    </div>
+
+                    <p>No caso do grafo mostrando logo acima, a Coroa é o ciclo $abcdefa$.</p>
+
+                    <div class="feat">
+                        <div class="feat-header">
+                            <h4>Definição: Base</h4>
+                        </div>
+                        <div class="feat-desc">
+                            A <b>Base</b> de uma $M$-Flor é o único vértice do cíclo ímpar
+                            incidente a duas arestas que não estão em $M$.
+                        </div>
+                    </div>
+
+                    <p>Utilizando ainda o exemplo acima, a Base seria o vértice $a$. Já no exemplo seguinte, a Coroa é o ciclo $cdefgc$ e a base é o vértice $c$.</p>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-18.png" alt="Um outro exemplo de uma Flor."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Um outro exemplo de uma Flor.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+                    <p>Note que não é difícil ajustar o nosso <code>BFS</code> para detectar flores.
+                        Ele já foi modificado para realizar a busca em caminhos alternantes, basta então
+                        apenas verificar as paridades dos diferentes caminhos.
+                    </p>
+
+                    <p>Além disso, podemos utilizar uma estrutura de <a href="https://en.wikipedia.org/wiki/Disjoint-set_data_structure" target="_blank"><em>Union Find</em></a> para armazenar os representantes de cada vértice durante a busca.
+                        Assim, durante o <code>BFS</code> podemos fazer duas verifições para um vértice $w$ já visitado encontrado novamente a partir de um ancestral $u$:</p>
+
+                    <ol>
+                        <li><code>representante(w) == representante(u)</code>. Se sim, $w$ foi encontrado duas vezes na mesma árvore de busca, logo existe um ciclo no grafo.</li>
+                        <li><code>paridade(w.altura) != paridade(u.altura + 1)</code>. Se sim, juntamente com a condição acima, significa que existem dois caminhos alternante de paridades diferentes iniciando em <code>representante(w)</code> e chegando em $w$.</li>
+                    </ol>
+
+                    <p>Com estas condições, conseguimos detectar Flores através do <code>BFS</code>. Tá, mas <em>e aí?</em> Depois de detectarmos uma Flor, o que fazemos? E é <em>aqui</em> que entra a sacada do algoritmo <em>Blossom</em>.
+                        Nós vamos <b>contrair</b> a Coroa da Flor, gerando um novo grafo e um novo emparelhamento que "ignora" o ciclo ímpar que estava dando problema.</p>
+
+                    <div class="feat">
+                        <div class="feat-header">
+                            <h4>Definição: Contração da Coroa</h4>
+                        </div>
+                        <div class="feat-desc">
+                            Seja $G$ um grafo, $M$ um emparelhamento de $G$, $B$ um
+                            subgrafo de $G$ que é uma Coroa de uma Flor e $u$ a base
+                            de $B$. Definimos então um novo grafo $G’$ e um novo
+                            emparelhamento $M’$ de $G’$ obtidos pela Contração da
+                            Coroa da seguinte maneira:
+                            <ol>
+                                <li>$V(G’) = (V(G) \setminus V(B)) \cup \{u\}$</li>
+                                <li>$E(G’) = E(G) \setminus E(B) \cup \{\{u, y\} \mid \{x, y\} \in E(G), x \in V(B), y \in V(G) \setminus V(B)\}$</li>
+                                <li>$M’ = M \setminus E(B)$</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <p>Em resumo, na contração, nós tentamos ver o ciclo ímpar inteiro como um vértice único: a base.</p>
+                    <p>Observe o grafo a seguir, onde $cdefgc$ é a Coroa com base $c$. Vamos o grafo com a Coroa contraída a partir dele.</p>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-19.png"/>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+                    <p>Após a contração da Coroa, obtemos o seguintes grafo:</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-20.png" alt="Grafo com a Coroa contraída."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Grafo com a Coroa contraída.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+                    <p>O resultado seguinte nos mostra como este grafo contraído nos será útil.</p>
+                    <div class="feat">
+                        <div class="feat-header">
+                            <h4>Teorema 3</h4>
+                        </div>
+                        <div class="feat-desc">
+                            Se $G’$ (<em>o grafo obtido a partir da contração da Coroa</em>) possui um caminho $M’$-aumentante, então $G$
+                            possui um caminho $M$-aumentante.
+                        </div>
+                    </div>
+
+                    <p><em>Prova.</em> Sejam $C$ um caminho $M$-aumentante de $G’$ e $u$ o
+                        vértice de $G’$ obtido pela contração da Coroa de $G$.
+                        Se $C$ não passa por $u$, então $G$ também possui o mesmo
+                        caminho $M$-aumentante. Considere então que $C$ passa
+                        por $u$.</p>
+
+                    <p>Note que, para qualquer vértice $v$ da Coroa,
+                        existem dois caminhos diferentes entre $u$ e $v$. Um destes caminhos termina em uma aresta de $M$ e outra
+                        em uma aresta fora de $M$.</p>
+
+                </div>
+            </div>
+
+            <div class="blog-post col-lg-10 col-12 offset-lg-2 flex row">
+                <div class="text-center col-12 col-lg-9">
+                    <img class="blog-img w-100" src="../blog-assets/blossom/figura-21.png" alt="Ilustração de dois caminhos diferentes entre um vértice da Coroa e a Base."/>
+                </div>
+                <div class="col-lg-2 col-12 legenda">
+                    <p>Ilustração de dois caminhos diferentes entre um vértice da Coroa e a Base, um terminando em uma aresta de $M$ e outra em uma aresta de $E(G) \setminus M$.</p>
+                </div>
+            </div>
+
+            <div class="blog-post col-12 col-lg-7 offset-lg-2 flex flex-column">
+                <div class="section">
+                    <p>Digamos que $C = v_1 \dots u \dots v_k$. Em $G$, existe um caminho de um vértice $v$ da Coroa
+                        até $v_k$ . Além disso, existem dois caminhos diferentes
+                        $C_1$ e $C_2$ de $u$ para $v$ em $G$, ambos iniciando em uma
+                        aresta fora de $M$. Um destes caminhos termina em uma
+                        aresta de $M$ e o outro em uma aresta fora de $M$.</p>
+
+                    <p>Então existem dois caminhos em G:</p>
+
+                    <ol>
+                        <li> $C_1’ = (v_1 \dots u) \odot C_1 \odot (v \dots v_k)$; e</li>
+                        <li> $C_2’ = (v_1 \dots u) \odot C_2 \odot (v \dots v_k)$.</li>
+                    </ol>
+
+                    <p>Ou $C_1’$ ou $C_2’$ é um caminho $M$-aumentante de $G$. ⬛</p>
+
+                    <p>Graças a este resultado, sabemos então que ao encontrar uma Flor no grafo, podemos contrair sua Coroa e continuar a busca no novo Grafo por caminhos aumentantes sem nos preocuparmos com o problema do ciclo ímpar!</p>
+
+                    <h3>O Algoritmo <em>(finalmente)</em></h3>
+
+                    <p>Vamos a um resumo do nosso algoritmo. A base dele será o Teorema de Berge: nós
+                        iremos buscar por caminhos aumentantes e realizar a operação de aumentar o emparelhamento
+                        em uma unidade sempre que encontrarmos até que não exista mais nenhum. Relembre o pseudocódigo que vimos no início do texto:
+                    </p>
+
+<pre>
+<code>def FIND_MAXIMUM_MATCHING(G, M):
+    P <- FIND_AUGMENTING_PATH(G, M)
+    se P == []:
+        retorne M
+    senão:
+        M <- M Δ E(P) #diferença simétrica
+        retorne FIND_MAXIMUM_MATCHING(G, M)
+</code>
+</pre>
+
+                    <p>Ao vermos este pseudocódigo, foi perguntado como poderíamos implementar a função <code>FIND_AUGMENTING_PATH</code>.
+                        Com o que vimos até agora, já sabemos como implementar esta função.</p>
+
+                    <p>Para encontrar os caminhos aumentantes, iremos utilizar uma Busca em Largura (<code>BFS</code>),
+                        porém com uma pequena alteração: iremos iniciar a busca em vértice insaturados, alternando entre
+                        arestas fora de $M$ e arestas de $M$. Para cada novo vértice $v$ encontrado na busca, verificamos:</p>
+
+                    <ol>
+                        <li><b>$v$ é um vértice $M$-insaturado:</b> então encontramos
+                            um caminho M-aumentante e retornamos o caminho.</li>
+                        <li><b>$v$ ainda não foi visitado e é $M$-saturado:</b>
+                            adicionamos $v$ e seu par $u$ na árvore, pois é claro que $u$ é o único vértice que $v$ consegue
+                            alcançar através de uma aresta de $M$.</li>
+                        <li><b>$v$ já foi visitado e forma um ciclo par:</b> ciclos pares não são problemas, então podemos continuar o <code>BFS</code> normalmente sem fazer nada para tratar este caso.</li>
+                        <li><b>$v$ já foi visitado e forma um ciclo ímpar:</b> contraímos a Coroa (o ciclo) e realizamos um novo <code>BFS</code> em busca de um caminho aumentante. Pelo Teorema 3, se encontrarmos tal caminho aumentante no grafo contraído, sabemos que também existe um no grafo original.</li>
+                    </ol>
+
+                    <p>Para armazenar o início do caminho, isto é, a raiz de uma árvore de busca do <code>BFS</code>, vamos utilizar a estrutura de <em>Union Find</em>, armazenando os representantes de cada vértice na árvore gerada pelo <code>BFS</code>.
+                        Além disso, vamos armazenar os pais de cada vértice na árvore, para que possamos "desempilhá-los" para sabermos exatamente qual o caminho aumentante que foi encontrado, no caso de encontrarmos algum.</p>
+
+                    <p>O pseudocódigo da Busca em Largura fica então da seguinte maneira:</p>
+
+                    <p><em><b>Observação:</b> alguns detalhes foram omitidos devido a simplicidade de implementação
+                        ou conhecimento fora do escopo deste texto como,
+                         por exemplo, a função de gerar o grafo contraído e a implementação da estrutura de <em>Union Find</em>,
+                        e fica a cargo do leitor.</em></p>
+
+<pre>
+<code>def FIND_AUGMENTING_PATH(G, M):
+    F <- floresta vazia
+    insaturados <- V(G) \ V(G[M])
+    para v em insaturados:
+        adiciona v em F
+    para v em V(F):
+        para w em v.vizinhos:
+            se w.visited == false:
+                se w está em V(G[M]):
+                    u <- par de w em M
+                    adiciona w, u e aresta wu em F
+                senão:
+                    retorna AUGMENTING_PATH(F, v, w)
+            senão:
+                se representante(v) == representante(w) && paridade(h(w)) != paridade(curr_h):
+                    blossom <- DETECT_BLOSSOM(F, v, w)
+                    G’, M’ <- CONTRACT_BLOSSOM(G, M, blossom)
+                    retorna FIND_AUGMENTING_PATH(G’, M’)
+    retorna []
+</code>
+</pre>
+
+                    <h3>Complexidade</h3>
+
+                    <p>Primeiramente, como o tamanho de um emparelhamento
+                        é no máximo $\frac{n}{2}$ e, a cada caminho $M$-aumentante
+                        aumenta o emparelhamento em uma unidade, teremos
+                        $O(n)$ chamadas de <code>FIND_AUGMENTING_PATH</code>.</p>
+
+                    <p>A cada chamada de
+                        <code>FIND_AUGMENTING_PATH</code>, executamos um BFS
+                        que leva $O(n + m) = O(m)$ e podemos
+                        encontrar uma Flor cuja contração da Coroa leva
+                        também $O(n + m) = O(m)$. Após a contração, realizamos
+                        novamente um BFS, levando $O(m)$. Ficamos com $O(n \cdot m)$.</p>
+
+                    <p>Mas a cada BFS, podemos encontrar uma Coroa e precisamos recuperar um caminho aumentante.
+                        A contração e a recuperação do caminho
+                        leva $O(n)$. Portanto, temos uma complexidade final de $O(n \cdot m \cdot n) = O(n^2m)$.
+                    </p>
+
 
                 </div>
             </div>
