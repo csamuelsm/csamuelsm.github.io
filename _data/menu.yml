@@ -4,35 +4,45 @@
 entries:
   - title: info
     entries:
-      - title: a (nearly) no-CSS, fast, minimalist Jekyll theme.
-      - title: github repo
-        url: https://github.com/riggraz/no-style-please
-      - title: "used by <a href='https://riggraz.dev'>riggraz.dev</a> and <a href='https://github.com/riggraz/no-style-please/network/dependents'>many others</a>"
+      - title: "🎓 Atualmente, sou estudante de doutorado em Ciência da Computação no grupo <a href='http://pargo.ufc.br/' target='_blank'>ParGO</a> da Universidade Federal do Ceará."
+      - title: 📍☀️ Fui nascido e criado em Juazeiro do Norte, orgulhosamente do Cariri cearense. Atualmente, moro em Fortaleza.
+      - title: ✍🏻 Academicamente, meus principais temas de interesse são 🕸️Teoria dos Grafos, 🧮Algoritmos e Teoria da Complexidade, 🃏Combinatória, e ♟️Teoria dos Jogos Combinatórios.
+      - title: 💡 Eu também me interesso bastante por Mangás, Cinema, Jogos de Cartas ou de Tabuleiro, Arte e Design Gráfico, e várias outras coisas.
+      - title: "🎬🎮 Jogue <a href='https://www.filme-secreto.com.br/' target='_blank'>Filme Secreto</a>, meu jogo diário de adivinhar um filme com base na sua similaridade com outros filmes!"
+      - title: Nesta terra de doutores, magnificos reitores, leva-se a sério a comédia
+        url: https://open.spotify.com/intl-pt/track/6qSLuV0awyL1mbU81YncvS?si=fed80671f0fc4aa9
 
-  - title: all posts
+  - title: últimas coisas que pensei e escrevi
     post_list:
       limit: 5
       show_more: true
       show_more_text: See archive...
       show_more_url: archive.html
 
-  - title: posts by category
-    post_list:
-      category: example2
-      show_more: true
-      show_more_text: See more posts...
-      show_more_url: example2-archive.html
+  #- title: posts by category
+  #  post_list:
+  #    category: example2
+  #    show_more: true
+  #    show_more_text: See more posts...
+  #    show_more_url: example2-archive.html
 
-  - title: rss
-    url: feed.xml
+  #- title: rss
+  #  url: feed.xml
   
-  - title: another list
+  - title: links e contatos
     entries:
-      - title: with subitems
-        entries:
-          - title: with subsubitems
-          - title: example page
-            url: about
-  - title: PRO TIP
-    entries:
-      - title: to edit this menu, edit _data/menu.yml file
+      - title: csamuelssm@alu.ufc.br
+        url: mailto:csamuelssm@alu.ufc.br
+      - title: Lattes
+        url: https://lattes.cnpq.br/3942868279619594
+      - title: Github
+        url: https://github.com/csamuelsm
+      - title: Letterboxd
+        url: https://letterboxd.com/csamuelssm/
+        #entries:
+        #  - title: with subsubitems
+        #  - title: example page
+        #    url: about
+  #- title: PRO TIP
+  #  entries:
+  #    - title: to edit this menu, edit _data/menu.yml file
